@@ -1,6 +1,9 @@
 const user = { name: 'John Doe', age: 30 };
 localStorage.setItem('_scs', JSON.stringify(user));
 
-// Retrieving and parsing
-const retrievedUser = JSON.parse(localStorage.getItem('user'));
-console.log(retrievedUser.name); // Output: John Doe
+const iframe = document.getElementById('calculator');
+
+iframe.onload = function () {
+  const data = localStorage.getItem('_scs');
+  iframe.contentWindow.postMessage({ key: '_scs', value: data }, '*');
+};
