@@ -45,12 +45,12 @@
       };
 
       localStorage.setItem('_scs', JSON.stringify(scs));
-
+      let nextJsUrl;
       if (reportId) {
         // Construct the Next.js iframe URL with the ID
-        const nextJsUrl = `https://sangfor-calculator.vercel.app/report/${reportId}`;
+        nextJsUrl = `https://sangfor-calculator.vercel.app/report/${reportId}`;
       } else {
-        const nextJsUrl = 'https://sangfor-calculator.vercel.app/';
+        nextJsUrl = 'https://sangfor-calculator.vercel.app/';
       }
 
       // Create an iframe
