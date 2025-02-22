@@ -4,7 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="./style.css" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100dvh;
+      }
+
+      #calculator {
+        width: 100%;
+        min-height: 100dvh;
+        border: none;
+      }
+    </style>
   </head>
   <body>
     <div class="wrapper">
@@ -20,7 +39,8 @@
       }
 
       // Get the 'id' parameter from the URL
-      const reportId = getQueryParam('id');
+      const reportId = getQueryParam('report');
+      console.log('reportId:', reportId);
 
       // Set tracking data in localStorage
       const scs = {
@@ -45,17 +65,17 @@
       };
 
       localStorage.setItem('_scs', JSON.stringify(scs));
-      let nextJsUrl;
+      let calculatorUrl;
       if (reportId) {
         // Construct the Next.js iframe URL with the ID
-        nextJsUrl = `https://sangfor-calculator.vercel.app/report/${reportId}`;
+        calculatorUrl = `https://sangfor-calculator.vercel.app/report/${reportId}`;
       } else {
-        nextJsUrl = 'https://sangfor-calculator.vercel.app/';
+        calculatorUrl = 'https://sangfor-calculator.vercel.app/';
       }
 
       // Create an iframe
       const iframe = document.createElement('iframe');
-      iframe.src = nextJsUrl;
+      iframe.src = calculatorUrl;
       iframe.id = 'calculator';
       iframe.width = '100%';
       iframe.height = '600px';
