@@ -13,7 +13,7 @@ const scs = {
         landing_url: null,
         gBraid: null,
         gclid: null,
-        gdpr_checkbox: null,
+        gdpr_checkbox: false,
       },
     },
   },
