@@ -13,9 +13,7 @@
     </style>
   </head>
   <body>
-    <div class="wrapper" style="display: flex">
-      <div id="iframe-container" style="width: 100%; border: 4px solid red"></div>
-    </div>
+    <div id="iframe-container" style="width: 100%"></div>
 
     <script>
       function getQueryParam(param) {
@@ -37,10 +35,9 @@
       iframe.src = calculatorUrl;
       iframe.id = 'calculator';
       iframe.width = '100%';
-      // iframe.height = '600px';
       iframe.style.border = 'none';
-      iframe.style.minHeight = '100dvh';
-      iframe.style.overflow = 'hidden';
+      // iframe.style.minHeight = '100dvh';
+      // iframe.style.overflow = 'hidden';
 
       document.getElementById('iframe-container').appendChild(iframe);
 
@@ -48,6 +45,15 @@
         const data = localStorage.getItem('_scs');
         iframe.contentWindow.postMessage({ key: '_scs', value: data }, '*');
       };
+
+      window.addEventListener(
+        'message',
+        function (event) {
+          if (event.origin !== 'https://sase-roi-calculator.sangfor.com/') return;
+          iframe.style.height = event.data + 'px';
+        },
+        false
+      );
     </script>
   </body>
 </html>
