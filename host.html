@@ -22,12 +22,13 @@
       }
 
       const reportId = getQueryParam('report');
+
       let calculatorUrl;
 
       if (reportId) {
-        calculatorUrl = `https://roi-calculator-sigma.vercel.app/report/${reportId}`;
+        calculatorUrl = `https://sase-roi-calculator.sangfor.com/report/${reportId}`;
       } else {
-        calculatorUrl = 'https://roi-calculator-sigma.vercel.app/';
+        calculatorUrl = 'https://sase-roi-calculator.sangfor.com/';
       }
 
       const iframe = document.createElement('iframe');
@@ -45,16 +46,12 @@
         iframe.contentWindow.postMessage({ key: '_scs', value: data }, '*');
       };
 
-      window.addEventListener(
-        'message',
-        function (event) {
-          if (event.origin !== 'https://roi-calculator-sigma.vercel.app') return;
-          iframe.style.height = event.data + 'px';
+      window.addEventListener('message', function (event) {
+        if (event.origin !== 'https://sase-roi-calculator.sangfor.com') return;
+        iframe.style.height = event.data + 'px';
 
-          console.log(event.data, '------------Height');
-        },
-        false
-      );
+        console.log(event.data, '------------Height');
+      });
     </script>
   </body>
 </html>
