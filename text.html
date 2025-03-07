@@ -45,16 +45,23 @@
         iframe.contentWindow.postMessage({ key: '_scs', value: data }, '*');
       };
 
-      window.addEventListener(
-        'message',
-        function (event) {
-          if (event.origin !== 'https://roi-calculator-sigma.vercel.app') return;
+      const updateIframeHeight = (event) => {
+        if (event.origin !== 'https://roi-calculator-sigma.vercel.app') return; // Ensure security
+        console.log('Received height from iframe:', event.data);
+        if (iframe) {
           iframe.style.height = event.data + 'px';
+        }
+      };
 
-          console.log(event.data, '------------Height');
-        },
-        false
-      );
+      // Function to restart listener when iframe reloads
+      const restartListener = () => {
+        window.removeEventListener('message', updateIframeHeight);
+        window.addEventListener('message', updateIframeHeight, false);
+      };
+
+      // Monitor iframe load to restart listener
+      iframe.addEventListener('load', restartListener);
+      window.addEventListener('message', updateIframeHeight, false);
     </script>
   </body>
 </html>
