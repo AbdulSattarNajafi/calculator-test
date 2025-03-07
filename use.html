@@ -48,10 +48,7 @@
 
       window.addEventListener('message', function (event) {
         if (event.origin !== 'https://roi-calculator-sigma.vercel.app') return;
-
         iframe.style.height = event.data + 'px';
-
-        console.log(event.data, '------------');
       });
     </script>
   </body>
