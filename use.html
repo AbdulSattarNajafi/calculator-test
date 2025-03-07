@@ -46,12 +46,16 @@
         iframe.contentWindow.postMessage({ key: '_scs', value: data }, '*');
       };
 
-      window.addEventListener('message', function (event) {
-        if (event.origin !== 'https://roi-calculator-sigma.vercel.app') return;
-        iframe.style.height = event.data + 'px';
+      window.addEventListener(
+        'message',
+        function (event) {
+          if (event.origin !== 'https://roi-calculator-sigma.vercel.app') return;
+          iframe.style.height = event.data + 'px';
 
-        console.log(event.data, '------------Height');
-      });
+          console.log(event.data, '------------Height');
+        },
+        false
+      );
     </script>
   </body>
 </html>
