@@ -35,7 +35,6 @@
       iframe.id = 'calculator';
       iframe.width = '100%';
       iframe.style.border = 'none';
-      iframe.style.minHeight = '600px';
       iframe.style.overflow = 'hidden';
 
       document.getElementById('iframe-container').appendChild(iframe);
@@ -48,9 +47,7 @@
       const updateIframeHeight = (event) => {
         if (event.origin !== 'https://roi-calculator-sigma.vercel.app') return; // Ensure security
         console.log('Received height from iframe:', event.data);
-        if (iframe) {
-          iframe.style.height = event.data + 'px';
-        }
+        iframe.style.height = event.data + 'px';
       };
 
       // Function to restart listener when iframe reloads
