@@ -13,14 +13,7 @@
     </style>
   </head>
   <body>
-    <div id="iframe-container" style="width: 100%">
-      <iframe
-        id="calculator-iframe"
-        sandbox="allow-scripts allow-same-origin"
-        frameborder="0"
-        style="width: 100%; min-height: 600px; border: none; overflow: hidden"
-      ></iframe>
-    </div>
+    <div id="iframe-container" style="width: 100%"></div>
 
     <script>
       function getQueryParam(param) {
@@ -38,8 +31,15 @@
         calculatorUrl = 'https://roi-calculator-sigma.vercel.app/';
       }
 
-      const iframe = document.getElementById('calculator-iframe');
+      const iframe = document.createElement('iframe');
       iframe.src = calculatorUrl;
+      iframe.id = 'calculator';
+      iframe.width = '100%';
+      iframe.style.border = 'none';
+      iframe.style.minHeight = '600px';
+      iframe.style.overflow = 'hidden';
+
+      document.getElementById('iframe-container').appendChild(iframe);
 
       iframe.onload = function () {
         const data = localStorage.getItem('_scs');
