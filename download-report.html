@@ -21,37 +21,33 @@
         return urlParams.get(param);
       }
 
-      const reportId = getQueryParam('report');
+      const errorMessage = document.createElement('p');
+      errorMessage.textContent = 'Report not found!';
+      errorMessage.style.textAlign = 'center';
+      errorMessage.style.fontSize = '22px';
+      errorMessage.style.margin = '40px 20px';
+
+      const reportId = getQueryParam('result');
 
       let calculatorUrl;
 
       if (reportId) {
-        calculatorUrl = `https://sase-roi-calculator.sangfor.com/report/${reportId}`;
-      } else {
-        calculatorUrl = 'https://sase-roi-calculator.sangfor.com/';
+        calculatorUrl = `https://sase-roi-calculator.sangfor.com/result/${reportId}`;
       }
 
       const iframe = document.createElement('iframe');
       iframe.src = calculatorUrl;
       iframe.id = 'calculator';
       iframe.width = '100%';
+      iframe.style.height = '400px';
       iframe.style.border = 'none';
-      iframe.style.minHeight = '600px';
       iframe.style.overflow = 'hidden';
 
-      document.getElementById('iframe-container').appendChild(iframe);
-
-      iframe.onload = function () {
-        const data = localStorage.getItem('_scs');
-        iframe.contentWindow.postMessage({ key: '_scs', value: data }, '*');
-      };
-
-      window.addEventListener('message', function (event) {
-        if (event.origin !== 'https://sase-roi-calculator.sangfor.com') return;
-        iframe.style.height = event.data + 'px';
-
-        console.log(event.data, '------------Height');
-      });
+      if (reportId) {
+        document.getElementById('iframe-container').appendChild(iframe);
+      } else {
+        document.getElementById('iframe-container').appendChild(errorMessage);
+      }
     </script>
   </body>
 </html>

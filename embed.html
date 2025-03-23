@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="calculator-container" style="width: 100%"></div>
+
+    <script>
+      let calculatorUrl = 'https://sase-roi-calculator.sangfor.com';
+      const form_page_url = window.location.href;
+
+      const calculatorIframe = document.createElement('iframe');
+      calculatorIframe.src = calculatorUrl;
+      calculatorIframe.id = 'calculator';
+      calculatorIframe.width = '100%';
+      calculatorIframe.style.border = 'none';
+      calculatorIframe.style.minHeight = '600px';
+      calculatorIframe.style.overflow = 'hidden';
+
+      document.getElementById('calculator-container').appendChild(calculatorIframe);
+
+      calculatorIframe.onload = function () {
+        const scsData = localStorage.getItem('_scs') || '{}';
+
+        setTimeout(() => {
+          calculatorIframe.contentWindow.postMessage(
+            { key: '_scs', value: scsData },
+            calculatorUrl
+          );
+        }, 500);
+      };
+
+      console.log(form_page_url);
+
+      window.addEventListener('message', function (event) {
+        if (event.origin !== 'https://sase-roi-calculator.sangfor.com') return;
+        calculatorIframe.style.height = event.data + 'px';
+      });
+    </script>
+  </body>
+</html>
